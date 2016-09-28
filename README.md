@@ -1,2 +1,4 @@
-# ngschemaformionicdecorator
-Angular Schema Form Ionic Decorator
+# Angular Schema Form - Ionic Decorator
+
+Status : In Progress
+

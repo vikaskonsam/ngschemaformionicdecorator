@@ -16,7 +16,7 @@
     	.help-block {
     		font-size:12px;
     	}
-    	.ng-invalid .help-block {
+    	.has-error .help-block {
     		color:red;
     	}
 
@@ -36,7 +36,7 @@
     		top:25px;
     	}
 
-    	.ng-invalid .ng-invalid-schema-form{
+    	.has-error .ng-invalid-schema-form{
     		border-bottom:solid 1px red;
     	}
     </style>
@@ -67,11 +67,13 @@
     app.controller('TestCtrl', function($scope) {
         $scope.form = [
             "name",
-            "email", {
-                "key": "comment",
-                "type": "textarea",
-                "placeholder": "Make a comment"
-            }, {
+            "phone",
+            "email",
+            {
+            	key : "comment",
+            	type : "textarea" 
+            },
+            {
                 "type": "submit",
                 "title": "OK"
             }
@@ -92,6 +94,11 @@
                     "pattern": "^\\S+@\\S+$",
                     "description": "Email will be used for evil."
                 },
+                "phone": {
+                    "title": "Mobile Phone",
+                    "type": "integer",
+                    "description": "Number will be used for evil."
+                },
                 "comment": {
                     "title": "Comment",
                     "type": "string",
@@ -102,6 +109,7 @@
             "required": [
                 "name",
                 "email",
+                "comment",
                 "comment"
             ]
         };

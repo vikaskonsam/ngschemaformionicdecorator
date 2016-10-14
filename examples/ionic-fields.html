@@ -46,7 +46,7 @@
     <ion-header-bar class="bar bar-header bar-positive">
         <h1 class="title">Ionic Input type text and textarea field</h1>
     </ion-header-bar>
-    <ion-content>
+    <ion-content scroll="true">
         <div>
             <form name="ngform" sf-model="modelData" sf-form="form" sf-schema="schema">
             </form>
@@ -63,7 +63,7 @@
 <script src="../ionic-decorator.min.js" type="text/javascript"></script>
 <script>
 (function() {
-    var app = angular.module('IonicFields', ['schemaForm']);
+    var app = angular.module('IonicFields', ['schemaForm','ngSanitize']);
     app.controller('TestCtrl', function($scope) {
         $scope.form = [
             "name",
@@ -72,10 +72,15 @@
             {
             	key : "comment",
             	type : "textarea" 
-            },
-            {
-                "type": "submit",
-                "title": "OK"
+            },{  
+                    key : "checkbox",
+                    title: "is the title checkbox",
+                    type: "checkbox"
+            },{  
+                    key : "radio",
+                    title: "This is radio field from form",
+                    type: "radios",
+                    titleMap: [{ name: "Yes", value: true}, { name: "Nooooo", value: false }]
             }
         ];
 
@@ -104,6 +109,14 @@
                     "type": "string",
                     "maxLength": 20,
                     "validationMessage": "Don't be greedy!"
+                },
+                "checkbox" : {
+                    "title": "checkbox is the title",
+                    "type": "boolean"
+                },
+                "radio" : {
+                    "title": "This is radio field",
+                    "type": "boolean"
                 }
             },
             "required": [

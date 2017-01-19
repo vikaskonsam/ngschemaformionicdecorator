@@ -6,51 +6,16 @@
     <title>Ionic Schema Form Fields</title>
     <link href="../bower_components/ionic/release/css/ionic.css" type="text/css" rel="stylesheet" />
     <style>
-    .sr-only {
-        height: 1px;
-        width: 1px;
-        position: absolute;
-        overflow: hidden;
-    }
-    
-    .help-block {
-        font-size: 12px;
-    }
-    
-    .has-error .help-block {
-        color: red;
-    }
-    
-    .form-field-feedback {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 2;
-        display: block;
-        width: 34px;
-        height: 34px;
-        line-height: 34px;
-        text-align: center;
-        pointer-events: none;
-    }
-    
-    .has-feedback .form-field-feedback {
-        top: 25px;
-    }
-    
-    .has-error .ng-invalid-schema-form {
-        border-bottom: solid 1px red;
-    }
+        .help-text {
+            font-size:.8em;
+        }
     </style>
 </head>
 
-<body ng-app="IonicFields" ng-controller="TestCtrl" style="padding:80px 0px;">
-    <ion-header-bar class="bar bar-header bar-positive">
-        <h1 class="title">Ionic Input type text and textarea field</h1>
-    </ion-header-bar>
-    <ion-content scroll="true">
+<body ng-app="IonicFields" ng-controller="TestCtrl" style="padding:0px 0px;">
+    <ion-content scroll="true" padding="true">
         <div>
-            <form name="ngform" sf-model="modelData" sf-form="form" sf-schema="schema">
+            <form name="ngform" sf-model="modelData" style="padding:0; margin:0px" sf-form="form" sf-schema="schema">
             </form>
         </div>
     </ion-content>
@@ -58,7 +23,7 @@
 <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../bower_components/tv4/tv4.js"></script>
 <script type="text/javascript" src="../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-<script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+<!-- <script type="text/javascript" src="../bower_components/angular/angular.js"></script> -->
 <script type="text/javascript" src="../bower_components/ionic/release/js/ionic.bundle.min.js"></script>
 <script type="text/javascript" src="../bower_components/objectpath/lib/ObjectPath.js"></script>
 <script src="../bower_components/angular-schema-form/dist/schema-form.js" type="text/javascript"></script>
@@ -68,39 +33,27 @@
 (function() {
     var app = angular.module('IonicFields', ['schemaForm', 'ngSanitize']);
     app.controller('TestCtrl', function($scope) {
-        $scope.form = [
-            "name",
-            "phone",
-            "email", {
-                key: "comment",
-                type: "textarea"
-            }, {
-                key: "checkbox",
-                title: "is the title checkbox",
-                type: "checkbox"
-            }, {
-                key: "radio",
-                title: "This is radio field from form",
-                type: "radios",
-                titleMap: [{
-                    name: "Yes",
-                    value: true
-                }, {
-                    name: "Nooooo",
-                    value: false
-                }]
-            }, {
-                key : 'select',
-                type: "select",
-                titleMap: [{
-                    value: "yes",
-                    name: "Yes I do"
-                }, {
-                    value: "no",
-                    name: "Hell no"
-                }]
-            }
-        ];
+        $scope.form = [{
+            key: "name",
+            type: "text",
+            labelType: "placeholder",
+            placeholder : "Name"
+        }, {
+            key: "phone",
+            type: "tel",
+            labelType: "inline",
+            placeholder : "Phone, inline style"
+        }, {
+            key: "email",
+            type: "email",
+            labelType: "stacked",
+            placeholder : "Email, stacked style"
+        }, {
+            key: "comment",
+            type: "text",
+            labelType: "floating",
+            placeholder : "Comment, floating style"
+        }];
 
 
         $scope.schema = {
@@ -108,43 +61,37 @@
             "title": "Comment",
             "properties": {
                 "name": {
-                    "title": "Name",
-                    "type": "string"
+                    "title": "Name, placeholder style",
+                    "type": "string",
+                    "description": "Description of Name and some other text."
+                },
+                "fName": {
+                    "title": "Father's Name",
+                    "type": "string",
+                    "description": "Description of father's name."
                 },
                 "email": {
                     "title": "Email",
                     "type": "string",
                     "pattern": "^\\S+@\\S+$",
-                    "description": "Email will be used for evil."
+                    "description": "Description of email will be used for evil."
                 },
                 "phone": {
                     "title": "Mobile Phone",
                     "type": "integer",
-                    "description": "Number will be used for evil."
+                    "description": "Description of number will be used for evil."
                 },
                 "comment": {
                     "title": "Comment",
                     "type": "string",
                     "maxLength": 20,
+                    "description": "Description comment will be used to catch you if you mess up.",
                     "validationMessage": "Don't be greedy!"
-                },
-                "checkbox": {
-                    "title": "checkbox is the title",
-                    "type": "boolean"
-                },
-                "radio": {
-                    "title": "This is radio field",
-                    "type": "boolean"
-                },
-                "select": {
-                    "title": "This is select field",
-                    "type": "boolean"
                 }
             },
             "required": [
                 "name",
                 "email",
-                "comment",
                 "comment"
             ]
         };
